@@ -1,0 +1,30 @@
+body {
+    color: white;
+    background-color: rgb(123, 36, 36);
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#logo_container {
+    width: 10%;
+    min-width: 80px;
+}
+
+#logo {
+    width: 100%;
+    object-fit: fill;
+}
+
+
+
+
+
