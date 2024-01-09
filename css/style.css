@@ -1,0 +1,42 @@
+body {
+    color: white;
+    background-color: rgb(123, 36, 36);
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#logo_container {
+    width: 10%;
+    min-width: 80px;
+}
+
+#logo {
+    width: 100%;
+    object-fit: fill;
+}
+
+.img{
+    width: 150px;
+    height: 200px;
+    border-radius:50% ;
+}
+.img2{
+    width: 250px;
+    height: 300px;
+    border-radius:10% ;
+}
+
+#superheroInfo{
+    position: relative;
+    
+}
+
