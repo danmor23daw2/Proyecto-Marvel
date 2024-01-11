@@ -23,7 +23,7 @@ function superHeroeInfo(characterId) {
 
             let superheroe = respuestaPersonaje.data.results[0];
 
-            let superheroeInfoContainer = document.getElementById('superheroInfo');
+            let superheroeInfoContainer = document.getElementById('superheroeInfo');
             superheroeInfoContainer.innerHTML = `
             <br><br><br><br>
                 <img class="img2" src="${superheroe.thumbnail.path}.${superheroe.thumbnail.extension}" alt="${superheroe.name}">
