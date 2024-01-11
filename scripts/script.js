@@ -2,6 +2,7 @@ let hulkId = 1009351;
 let thorId = 1009664;
 let ironmanId = 1009368;
 let cpAmericaId = 1009220;
+let spiderManId = 1009610;
 
 const ts = 1;
 const publickey = "dd2ca7aa45a3d7a09763bb0e98d24f39";
