@@ -3,6 +3,9 @@ let thorId = 1009664;
 let ironmanId = 1009368;
 let cpAmericaId = 1009220;
 let spiderManId = 1009610;
+let lokiId = 1009407;
+let deadpoolId = 1009268;
+let wolverineId = 1009718;
 
 const ts = 1;
 const publickey = "dd2ca7aa45a3d7a09763bb0e98d24f39";
@@ -21,20 +24,16 @@ function superHeroeInfo(characterId) {
         if (personajeXHR.status >= 200 && personajeXHR.status < 300) {
             let respuestaPersonaje = JSON.parse(personajeXHR.responseText);
 
-            let superheroe = respuestaPersonaje.data.results[0];
+            let comics = respuestaPersonaje.data.results;
 
-            let superheroeInfoContainer = document.getElementById('superheroeInfo');
-            superheroeInfoContainer.innerHTML = `
-            <br><br><br><br>
-                <img class="img2" src="${superheroe.thumbnail.path}.${superheroe.thumbnail.extension}" alt="${superheroe.name}">
-            `;
+            let comicsInfoContainer = document.getElementById('comicsInfo');
+            comicsInfoContainer.innerHTML = "";
 
-            let comics = superheroe.comics.items;
-            comics.slice(0, 6).forEach(function (comic) {
-                superheroeInfoContainer.innerHTML += `<p>${comic.name}</p>`;
-            });
-        } else {
-            console.error('Error en la solicitud. Código de estado:', personajeXHR.status);
+            comics.forEach(comic => {
+                comicsInfoContainer.innerHTML += `
+                <img class="img2" src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}">
+                `;
+            });          
         }
     };
 
@@ -44,3 +43,34 @@ function superHeroeInfo(characterId) {
 
     personajeXHR.send();
 }
+
+document.getElementById('hulkImagen').addEventListener('click', function () {
+    superHeroeInfo(hulkId);
+});
+
+document.getElementById('thorImagen').addEventListener('click', function () {
+    superHeroeInfo(thorId);
+});
+
+document.getElementById('ironmanImagen').addEventListener('click', function () {
+    superHeroeInfo(ironmanId);
+});
+
+document.getElementById('cpAmericaImagen').addEventListener('click', function () {
+    superHeroeInfo(cpAmericaId);
+});
+
+document.getElementById('spiderManImagen').addEventListener('click', function () {
+    superHeroeInfo(spiderManId);
+});
+
+document.getElementById('LokiImagen').addEventListener('click', function () {
+    superHeroeInfo(lokiId);
+});
+
+document.getElementById('DeadpoolImage').addEventListener('click', function () {
+    superHeroeInfo(deadpoolId);
+});
+document.getElementById('WolverineImage').addEventListener('click', function () {
+    superHeroeInfo(wolverineId);
+});
