@@ -108,18 +108,23 @@ a {
     text-align: center; 
     margin-top: 20px;
 }
-#boton{
-    color: red;
-    background-color: black;
-    border: solid 0px white;
-    border-radius: 30px;
-    font-size: 20px;
+#boton {
+    color: white;
+    background-color: #ff0909; 
+    border: hidden;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 18px;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border 0.3s; 
 }
-#boton:hover{
-    color: black;
-    background-color: red;
+
+#boton:hover {
+    color: #ec1e1ee1; 
+    background-color: rgb(10, 10, 10);
+    border: hidden;
 }
+
 
 #comicsInfo {
     display: flex;
