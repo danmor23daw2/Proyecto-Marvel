@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="./img/M-favicon.png">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./scripts/script.js"></script>
     <title>MarvelAPI</title>
 </head>
-<script src="./scripts/script.js"></script>
+
 <body>
     <div id="header">
         <div id="logo_container">
@@ -18,19 +19,20 @@
             </a>
         </div>
     </div>
+    <div class="buscar-container">
+        <input type="text" id="inputBuscar" class="barrabuscar" placeholder="Buscar por nombre...">
+    </div>
+    <div class="boton-buscar">
+        <button id="boton"onclick="buscarPersonajes()">Buscar</button>
+    </div>
     <div class="imagenes">
-    <img class="img" src="img/hulk.jpg" id="hulkImagen" onclick="superHeroeInfo(hulkId)">
-    <img class="img" src="img/thor.jpg" id="thorImagen" onclick="superHeroeInfo(thorId)">
-    <img class="img" src="img/ironman.jpg" id="ironmanImagen" onclick="superHeroeInfo(ironmanId)">
-    <img class="img" src="img/cpamerica.jpg" id="cpAmericaImagen" onclick="superHeroeInfo(cpAmericaId)">
-    <img class="img" src="img/spiderman.jpg" id="spiderManImagen" onclick="superHeroeInfo(spiderManId)">
-    <img class="img" src="img/loki.jpg" id="LokiImagen" onclick="superHeroeInfo(lokiId)">
-    <img class="img" src="img/deadpool.jpg" id="DeadpoolImage" onclick="superHeroeInfo(deadpoolId)">
-    <img class="img" src="img/wolverine.jpg" id="WolverineImage" onclick="superHeroeInfo(wolverineId)">
-    <img class="img" src="img/wolverine.jpg" id="WolverineImage" onclick="superHeroeInfo(wolverineId)">
+        <div class="img" id="personajeInfo" onload="obtenerImagenAleatoria()">
+        </div>
     </div>
-    <div class="img" id="comicsInfo">
+    <div class="linea"></div>
+    <div class="img" id="comicsInfo" >
     </div>
+
 </body>
 
 </html>
