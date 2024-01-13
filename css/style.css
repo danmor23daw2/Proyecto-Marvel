@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'fuente'; 
+    src: url('/fonts/ThunderboltRegular-8MV8M.ttf') 
+}
+
 body {
     color: white;
     background-color: rgb(123, 36, 36);
@@ -28,15 +33,14 @@ a {
     width: 150px;
     height: 200px;
     border-radius:10% ;
-    cursor: pointer;
-    margin: 7px;
+    margin-top: 100px;
     
 }
 .img2{
-    width: 250px;
-    height: 270px;
+    width: 170px;
+    height: 170px;
     border-radius:10% ;
-    
+    cursor: pointer;
 }
 #comicsInfo {
     display: flex;
@@ -44,10 +48,26 @@ a {
     margin-left: 50px;
     margin-top: 50px;
 }
-#superheroeInfo{
-    margin-top: 0px;
-}
+
 .imagenes{
     margin-top: 50px;
     margin-left: 0px;
+}
+#personajeInfo {
+    display: flex;
+    flex-wrap: nowrap;  
+    margin-left: 50px;
+    margin-top: 50px;
+}
+.personaje{
+    border:2px solid #ccc;
+    color:rgb(235, 235, 235);
+    background-color: rgb(194, 11, 20);
+    border-radius: 20px;
+    margin:5px;
+    padding: 5px;
+    font-family: fuente;
+}
+.personajeTexto{
+    font-size: 20px;
 }

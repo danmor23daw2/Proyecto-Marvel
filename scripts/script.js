@@ -1,76 +1,80 @@
-let hulkId = 1009351;
-let thorId = 1009664;
-let ironmanId = 1009368;
-let cpAmericaId = 1009220;
-let spiderManId = 1009610;
-let lokiId = 1009407;
-let deadpoolId = 1009268;
-let wolverineId = 1009718;
-
 const ts = 1;
 const publickey = "dd2ca7aa45a3d7a09763bb0e98d24f39";
 const hash = "cb78c8fab02c168b9097e47bbe10cbf5";
 const limit = "limit=8";
-const randomOffset = `offset=${Math.round(Math.random() * 100)}`;
+const randomOffset = `offset=${Math.round(Math.random() * 1473)}`;
 
-function superHeroeInfo(characterId) {
-    const url = `http://gateway.marvel.com/v1/public/characters/${characterId}/comics?${limit}&${randomOffset}&ts=${ts}&apikey=${publickey}&hash=${hash}`;
-    
-    let personajeXHR = new XMLHttpRequest();
+function obtenerImagenesAleatorias() {
+    const url = `http://gateway.marvel.com/v1/public/characters?${limit}&${randomOffset}&ts=${ts}&apikey=${publickey}&hash=${hash}`;
 
-    personajeXHR.open('GET', url, true);
+    let personajesXHR = new XMLHttpRequest();
 
-    personajeXHR.onload = function () {
-        if (personajeXHR.status >= 200 && personajeXHR.status < 300) {
-            let respuestaPersonaje = JSON.parse(personajeXHR.responseText);
+    personajesXHR.open('GET', url, true);
 
-            let comics = respuestaPersonaje.data.results;
+    personajesXHR.onload = function () {
+        if (personajesXHR.status >= 200 && personajesXHR.status < 300) {
+            let respuestaPersonajes = JSON.parse(personajesXHR.responseText);
+            let personajes = respuestaPersonajes.data.results;
+
+            let personajeInfoContainer = document.getElementById('personajeInfo');
+            personajeInfoContainer.innerHTML = "";
+
+            personajes.forEach(personaje => {
+                personajeInfoContainer.innerHTML += `
+                    <div class="personaje" data-id="${personaje.id}">
+                        <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
+                        <h2 class="personajeTexto">${personaje.name}</h2>
+                    </div>
+                `;
+            });
+
+            let personajesElements = document.getElementsByClassName('personaje');
+
+            for (let i = 0; i < personajesElements.length; i++) {
+                personajesElements[i].addEventListener('click', function () {
+                    let personajeId = personajesElements[i].getAttribute('data-id');
+                    obtenerComicsDelPersonaje(personajeId);
+                });
+            }
+            
+        }
+    };
+
+    personajesXHR.onerror = function () {
+        console.error('Error de red al intentar realizar la solicitud.');
+    };
+
+    personajesXHR.send();
+}
+
+function obtenerComicsDelPersonaje(personajeId) {
+    const comicsUrl = `http://gateway.marvel.com/v1/public/characters/${personajeId}/comics?ts=${ts}&apikey=${publickey}&hash=${hash}`;
+
+    let comicsXHR = new XMLHttpRequest();
+
+    comicsXHR.open('GET', comicsUrl, true);
+
+    comicsXHR.onload = function () {
+        if (comicsXHR.status >= 200 && comicsXHR.status < 300) {
+            let respuestaComics = JSON.parse(comicsXHR.responseText);
+            let comics = respuestaComics.data.results;
 
             let comicsInfoContainer = document.getElementById('comicsInfo');
             comicsInfoContainer.innerHTML = "";
 
             comics.forEach(comic => {
                 comicsInfoContainer.innerHTML += `
-                <img class="img2" src="${comic.thumbnail.path}.${comic.thumbnail.extension}" alt="${comic.title}">
+                    <img class="img" src="${comic.thumbnail.path}.${comic.thumbnail.extension}">
                 `;
-            });          
+            });
         }
     };
 
-    personajeXHR.onerror = function () {
-        console.error('Error de red al intentar realizar la solicitud.');
+    comicsXHR.onerror = function () {
+        console.error('Error de red al intentar obtener la información de los cómics.');
     };
 
-    personajeXHR.send();
+    comicsXHR.send();
 }
 
-document.getElementById('hulkImagen').addEventListener('click', function () {
-    superHeroeInfo(hulkId);
-});
-
-document.getElementById('thorImagen').addEventListener('click', function () {
-    superHeroeInfo(thorId);
-});
-
-document.getElementById('ironmanImagen').addEventListener('click', function () {
-    superHeroeInfo(ironmanId);
-});
-
-document.getElementById('cpAmericaImagen').addEventListener('click', function () {
-    superHeroeInfo(cpAmericaId);
-});
-
-document.getElementById('spiderManImagen').addEventListener('click', function () {
-    superHeroeInfo(spiderManId);
-});
-
-document.getElementById('LokiImagen').addEventListener('click', function () {
-    superHeroeInfo(lokiId);
-});
-
-document.getElementById('DeadpoolImage').addEventListener('click', function () {
-    superHeroeInfo(deadpoolId);
-});
-document.getElementById('WolverineImage').addEventListener('click', function () {
-    superHeroeInfo(wolverineId);
-});
+obtenerImagenesAleatorias();
