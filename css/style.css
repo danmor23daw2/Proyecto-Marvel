@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'fuente'; 
-    src: url('/fonts/ThunderboltRegular-8MV8M.ttf') 
+    src: url('../fonts/ThunderboltRegular-8MV8M.ttf') 
 }
 
 body {
@@ -41,12 +41,14 @@ a {
     height: 170px;
     border-radius:10% ;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 #comicsInfo {
     display: flex;
     flex-wrap: nowrap;  
     margin-left: 50px;
     margin-top: 50px;
+    
 }
 
 .imagenes{
@@ -59,15 +61,78 @@ a {
     margin-left: 50px;
     margin-top: 50px;
 }
+.personaje:hover {
+    transform: scale(1.2);
+}
+.comicsTransiciones:hover {
+    transform: scale(1.1);
+}
 .personaje{
-    border:2px solid #ccc;
-    color:rgb(235, 235, 235);
-    background-color: rgb(194, 11, 20);
+    width: 250px;
+    height: 250px;
+    background-color: rgb(32 0 0);
     border-radius: 20px;
-    margin:5px;
-    padding: 5px;
-    font-family: fuente;
+    background-image: linear-gradient(180deg, transparent, #ab1b8091, #440202, transparent);
+    margin: 10px;
+    padding: 10px;
+    border-bottom: 1px solid rgb(226, 36, 169);
+    font-family: 'fuente'; 
 }
 .personajeTexto{
     font-size: 20px;
+}
+
+.buscar-container {
+    text-align: center; 
+    margin-top: 20px;
+}
+
+.barrabuscar {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: rgb(233, 230, 230);
+    color: rgb(3, 3, 3);
+    margin-right: 10px;
+}
+
+.buscarPersonajes{
+    text-align: center; 
+    margin-top: 20px;
+}
+.boton-buscar{
+    text-align: center; 
+    margin-top: 20px;
+}
+#boton{
+    color: red;
+    background-color: black;
+    border: solid 0px white;
+    border-radius: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+#boton:hover{
+    color: black;
+    background-color: red;
+}
+
+#comicsInfo {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20px;
+    margin-right: 10px;
+    margin-top: -50px;
+    max-width: 100%; 
+    width: auto;
+    box-sizing: border-box;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.linea{
+    margin-top: 120px;
+    border: #440202 1px solid ;
 }

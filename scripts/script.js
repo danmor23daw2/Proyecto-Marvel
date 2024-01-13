@@ -64,7 +64,9 @@ function obtenerComicsDelPersonaje(personajeId) {
 
             comics.forEach(comic => {
                 comicsInfoContainer.innerHTML += `
+                    <div class="comicsTransiciones">
                     <img class="img" src="${comic.thumbnail.path}.${comic.thumbnail.extension}">
+                    </div>
                 `;
             });
         }
@@ -76,5 +78,50 @@ function obtenerComicsDelPersonaje(personajeId) {
 
     comicsXHR.send();
 }
+function buscarPersonajes() {
+    const inputBuscar = document.getElementById('inputBuscar');
+    const buscar = inputBuscar.value;
+
+    const url = `http://gateway.marvel.com/v1/public/characters?&ts=${ts}&apikey=${publickey}&hash=${hash}&nameStartsWith=${buscar}`;
+
+    let buscarXHR = new XMLHttpRequest();
+
+    buscarXHR.open('GET', url, true);
+
+    buscarXHR.onload = function () {
+        if (buscarXHR.status >= 200 && buscarXHR.status < 300) {
+            let respuestaBusqueda = JSON.parse(buscarXHR.responseText);
+            let personajesBusqueda = respuestaBusqueda.data.results;
+
+            let personajeInfoContainer = document.getElementById('personajeInfo');
+            personajeInfoContainer.innerHTML = "";
+
+            personajesBusqueda.forEach(personaje => {
+                personajeInfoContainer.innerHTML += `
+                    <div class="personaje" data-id="${personaje.id}">
+                        <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
+                        <h2 class="personajeTexto">${personaje.name}</h2>
+                    </div>
+                `;
+            });
+
+            let personajesElements = document.getElementsByClassName('personaje');
+
+            for (let i = 0; i < personajesElements.length; i++) {
+                personajesElements[i].addEventListener('click', function () {
+                    let personajeId = personajesElements[i].getAttribute('data-id');
+                    obtenerComicsDelPersonaje(personajeId);
+                });
+            }
+        }
+    };
+
+        buscarXHR.onerror = function () {
+            console.error('Error de red al intentar realizar la búsqueda.');
+        };
+
+        buscarXHR.send();
+    }
+
 
 obtenerImagenesAleatorias();
