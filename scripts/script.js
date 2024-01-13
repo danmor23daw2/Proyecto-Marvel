@@ -82,7 +82,7 @@ function buscarPersonajes() {
     const inputBuscar = document.getElementById('inputBuscar');
     const buscar = inputBuscar.value;
 
-    const url = `http://gateway.marvel.com/v1/public/characters?&ts=${ts}&apikey=${publickey}&hash=${hash}&nameStartsWith=${buscar}`;
+    const url = `http://gateway.marvel.com/v1/public/characters?${limit}&ts=${ts}&apikey=${publickey}&hash=${hash}&nameStartsWith=${buscar}`;
 
     let buscarXHR = new XMLHttpRequest();
 
