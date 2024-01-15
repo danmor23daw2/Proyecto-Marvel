@@ -23,7 +23,7 @@
         <input type="text" id="inputBuscar" class="barrabuscar" placeholder="Buscar por nombre...">
     </div>
     <div class="boton-buscar">
-        <button id="boton"onclick="buscarPersonajes()">Buscar</button>
+        <button id="boton" onclick="buscarPersonajes()">Buscar</button>
     </div>
     <div class="imagenes">
         <div class="img" id="personajeInfo" onload="obtenerImagenAleatoria()">
@@ -31,10 +31,16 @@
     </div>
     <div class="linea"></div>
     <div class="comic-container">
-        <div class="img" id="comicsInfo" >
+        <div class="img" id="comicsInfo">
+        </div>
+    </div>
+
+    <div id="comicPopup" class="popup">
+        <div class="popup-container" id="contenidoPopup">
         </div>
     </div>
 
 </body>
 
 </html>
+
