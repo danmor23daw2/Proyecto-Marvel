@@ -30,8 +30,8 @@ a {
 }
 
 .img{
-    width: 120px;
-    height: 180px;
+    width: 140px;
+    height: 190px;
     border-radius:10% ;
     margin-top: 100px;
     
@@ -46,9 +46,10 @@ a {
 #comicsInfo {
     display: flex;
     flex-wrap: nowrap;  
-    margin-left: 50px;
-    margin-top: 50px;
-    
+
+}
+.comic-container{
+    margin-left: 40px;
 }
 
 .imagenes{
