@@ -1,7 +1,7 @@
 const ts = 1;
 const publickey = "dd2ca7aa45a3d7a09763bb0e98d24f39";
 const hash = "cb78c8fab02c168b9097e47bbe10cbf5";
-const limit = "limit=8";
+const limit = "limit=7";
 const randomOffset = `offset=${Math.round(Math.random() * 1473)}`;
 
 function obtenerImagenesAleatorias() {

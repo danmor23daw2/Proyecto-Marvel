@@ -30,8 +30,8 @@ a {
 }
 
 .img{
-    width: 150px;
-    height: 200px;
+    width: 120px;
+    height: 180px;
     border-radius:10% ;
     margin-top: 100px;
     
@@ -58,7 +58,7 @@ a {
 #personajeInfo {
     display: flex;
     flex-wrap: nowrap;  
-    margin-left: 50px;
+    margin-left: 25px;
     margin-top: 50px;
 }
 .personaje:hover {
