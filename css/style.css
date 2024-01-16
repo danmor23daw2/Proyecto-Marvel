@@ -2,6 +2,8 @@
     font-family: 'fuente'; 
     src: url('../fonts/ThunderboltRegular-8MV8M.ttf') 
 }
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Salsa&display=swap');
 
 body {
     color: white;
@@ -45,8 +47,8 @@ a {
 }
 .img3{
     width: 300px;
-    height: 350px;
-    border-radius:10% ;
+    height: 390px;
+
     transition: transform 0.3s ease;
 }
 #comicsInfo {
@@ -69,23 +71,30 @@ a {
     margin-top: 50px;
 }
 .personaje:hover {
-    transform: scale(1.2);
+    transform: scale(1.2) rotate(5deg);
+}
+.comicsTransiciones{
+    transition: transform 0.3s;
 }
 .comicsTransiciones:hover {
     transform: scale(1.1);
 }
-.personaje{
+.personaje {
     width: 250px;
     height: 250px;
-    background-color: rgb(32 0 0);
+    background-color: #1b1b1b;
     border-radius: 20px;
-    background-image: linear-gradient(180deg, transparent, #ab1b8091, #440202, transparent);
+    background-image: linear-gradient(180deg, transparent, #ff0000d1, #e50000, transparent);
     margin: 10px;
-    padding: 10px;
-    padding-bottom: 35px;
-    border-bottom: 1px solid rgb(226, 36, 169);
+    padding: 15px;
+    padding-bottom: 30px;
+    border-bottom: 3px solid #f00;
     font-family: 'fuente'; 
+    color: #fff; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    transition: transform 0.5s;
 }
+
 
 .personajeTexto{
     font-size: 20px;
@@ -156,12 +165,20 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-image: linear-gradient(180deg, #fc7c7c,#e20404, #960202,#640404);
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    color: black;
+    color: rgb(255, 255, 255);
     border-radius: 20px;
+}
+.fuente-popup{
+    font-family: 'Salsa', cursive;
+}
+
+.fuente-popup h2{
+    font-family: 'Cinzel', serif;
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.8);
 }
 
 .popup-container {
@@ -175,7 +192,7 @@ a {
     top: 10px;
     right: 10px;
     cursor: pointer;
-    background: rgb(253, 11, 11);
+    background: #640404;
     color:white;
     width: 20px;
     height: 20px;

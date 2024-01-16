@@ -10,7 +10,7 @@ function obtenerImagenesAleatorias() {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`${response.status}`);
             }
             return response.json();
         })
@@ -42,13 +42,14 @@ function obtenerImagenesAleatorias() {
             console.error('Error al intentar realizar la solicitud:', error.message);
         });
 }
+
 function obtenerComicsDelPersonaje(personajeId) {
     const comicsUrl = `http://gateway.marvel.com/v1/public/characters/${personajeId}/comics?ts=${ts}&apikey=${publickey}&hash=${hash}`;
 
     fetch(comicsUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`${response.status}`);
             }
             return response.json();
         })
@@ -60,15 +61,64 @@ function obtenerComicsDelPersonaje(personajeId) {
 
             comics.forEach(comic => {
                 comicsInfoContainer.innerHTML += `
-                    <div class="comicsTransiciones">
+                    <div class="comicsTransiciones" data-comic-id="${comic.id}">
                         <img class="img" src="${comic.thumbnail.path}.${comic.thumbnail.extension}">
                     </div>
                 `;
             });
+
+            const comicsElements = document.getElementsByClassName('comicsTransiciones');
+
+            for (let i = 0; i < comicsElements.length; i++) {
+                comicsElements[i].addEventListener('click', function () {
+                    const comicId = comicsElements[i].getAttribute('data-comic-id');
+                    obtenerDetallesDelComic(comicId);
+                });
+            }
         })
         .catch(error => {
             console.error('Error al intentar obtener la información de los cómics:', error.message);
         });
+}
+
+function obtenerDetallesDelComic(comicId) {
+    const comicDetallesUrl = `http://gateway.marvel.com/v1/public/comics/${comicId}?ts=${ts}&apikey=${publickey}&hash=${hash}`;
+
+    fetch(comicDetallesUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`${response.status}`);
+            }
+            return response.json();
+        })
+        .then(respuestaComicDetalles => {
+            const comicDetalles = respuestaComicDetalles.data.results[0];
+            mostrarPopup(comicDetalles);
+        })
+        .catch(error => {
+            console.error('Error al intentar obtener la información detallada del cómic:', error.message);
+        });
+}
+
+function cerrarPopup() {
+    const popup = document.getElementById('comicPopup');
+    popup.style.display = 'none';
+}
+
+function mostrarPopup(comicDetalles) {
+    const popup = document.getElementById('comicPopup');
+    const contenidoPopup = document.getElementById('contenidoPopup');
+
+    contenidoPopup.innerHTML = `
+        <div class="fuente-popup">
+            <button class="cerrar-popup" onclick="cerrarPopup()">X</button>
+            <h2>${comicDetalles.title}</h2>
+            <img class="img3" src="${comicDetalles.thumbnail.path}.${comicDetalles.thumbnail.extension}" alt="${comicDetalles.title}">
+            <p>${comicDetalles.description || 'Sin descripción disponible.'}</p>
+        </div>
+    `;
+
+    popup.style.display = 'block';
 }
 
 function buscarPersonajes() {
@@ -80,7 +130,7 @@ function buscarPersonajes() {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`${response.status}`);
             }
             return response.json();
         })
@@ -112,6 +162,5 @@ function buscarPersonajes() {
             console.error('Error al intentar realizar la búsqueda:', error.message);
         });
 }
-
 
 obtenerImagenesAleatorias();
