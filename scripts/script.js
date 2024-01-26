@@ -62,13 +62,24 @@ function obtenerComicsDelPersonaje(personajeId) {
             let comicsInfoContainer = document.getElementById('comicsInfo');
             comicsInfoContainer.innerHTML = "";
 
-            comics.forEach(comic => {
-                comicsInfoContainer.innerHTML += `
-                    <div class="comicsTransiciones">
-                    <img class="img" src="${comic.thumbnail.path}.${comic.thumbnail.extension}">
-                    </div>
-                `;
-            });
+    comics.forEach(comic => {
+        comicsInfoContainer.innerHTML += `
+            <div class="comicsTransiciones" data-comic-id="${comic.id}">
+                <img class="img" src="${comic.thumbnail.path}.${comic.thumbnail.extension}">
+            </div>
+        `;
+    });
+
+    let comicsElements = document.getElementsByClassName('comicsTransiciones');
+
+    for (let i = 0; i < comicsElements.length; i++) {
+        comicsElements[i].addEventListener('click', function () {
+            let comicId = comicsElements[i].getAttribute('data-comic-id');
+            obtenerDetallesDelComic(comicId);
+        });
+    }
+
+
         }
     };
 
@@ -78,6 +89,51 @@ function obtenerComicsDelPersonaje(personajeId) {
 
     comicsXHR.send();
 }
+
+function obtenerDetallesDelComic(comicId) {
+    const comicDetallesUrl = `http://gateway.marvel.com/v1/public/comics/${comicId}?ts=${ts}&apikey=${publickey}&hash=${hash}`;
+
+    let comicDetallesXHR = new XMLHttpRequest();
+
+    comicDetallesXHR.open('GET', comicDetallesUrl, true);
+
+    comicDetallesXHR.onload = function () {
+        if (comicDetallesXHR.status >= 200 && comicDetallesXHR.status < 300) {
+            let respuestaComicDetalles = JSON.parse(comicDetallesXHR.responseText);
+            let comicDetalles = respuestaComicDetalles.data.results[0];
+
+            mostrarPopup(comicDetalles);
+        }
+    };
+
+    comicDetallesXHR.onerror = function () {
+        console.error('Error de red al intentar obtener la información detallada del cómic.');
+    };
+
+    comicDetallesXHR.send();
+}
+
+function cerrarPopup() {
+    let popup = document.getElementById('comicPopup');
+    popup.style.display = 'none';
+}
+
+function mostrarPopup(comicDetalles) {
+    let popup = document.getElementById('comicPopup');
+    let contenidoPopup = document.getElementById('contenidoPopup');
+
+    contenidoPopup.innerHTML = `
+    <div class="fuente-popup">
+        <button class="cerrar-popup" onclick="cerrarPopup()">X</button>
+        <h2>${comicDetalles.title}</h2>
+        <img class="img3"src="${comicDetalles.thumbnail.path}.${comicDetalles.thumbnail.extension}" alt="${comicDetalles.title}">
+        <p>${comicDetalles.description || 'Sin descripción disponible.'}</p>
+    </div>
+    `;
+
+    popup.style.display = 'block';
+}
+
 function buscarPersonajes() {
     const inputBuscar = document.getElementById('inputBuscar');
     const buscar = inputBuscar.value;
