@@ -3,11 +3,13 @@ const publickey = "dd2ca7aa45a3d7a09763bb0e98d24f39";
 const hash = "cb78c8fab02c168b9097e47bbe10cbf5";
 const limit = "limit=7";
 const randomOffset = `offset=${Math.round(Math.random() * 1473)}`;
+const deadpoolID = 1009268;
+const wolverineID = 1009718;
 
 async function obtenerImagenesAleatorias() {
     try {
         const url = `http://gateway.marvel.com/v1/public/characters?${limit}&${randomOffset}&ts=${ts}&apikey=${publickey}&hash=${hash}`;
-        
+
         const response = await fetch(url);
 
         if (!response.ok) {
@@ -22,7 +24,7 @@ async function obtenerImagenesAleatorias() {
 
         personajes.forEach(personaje => {
             personajeInfoContainer.innerHTML += `
-                <div class="personaje" data-id="${personaje.id}">
+                <div class="personaje" personaje-id="${personaje.id}">
                     <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
                     <h2 class="personajeTexto">${personaje.name}</h2>
                 </div>
@@ -33,7 +35,7 @@ async function obtenerImagenesAleatorias() {
 
         for (let i = 0; i < personajesElements.length; i++) {
             personajesElements[i].addEventListener('click', function () {
-                const personajeId = personajesElements[i].getAttribute('data-id');
+                const personajeId = personajesElements[i].getAttribute('personaje-id');
                 obtenerComicsDelPersonaje(personajeId);
             });
         }
@@ -45,7 +47,7 @@ async function obtenerImagenesAleatorias() {
 async function obtenerComicsDelPersonaje(personajeId) {
     try {
         const comicsUrl = `http://gateway.marvel.com/v1/public/characters/${personajeId}/comics?ts=${ts}&apikey=${publickey}&hash=${hash}`;
-        
+
         const response = await fetch(comicsUrl);
 
         if (!response.ok) {
@@ -140,7 +142,7 @@ async function buscarPersonajes() {
 
         personajesBusqueda.forEach(personaje => {
             personajeInfoContainer.innerHTML += `
-                <div class="personaje" data-id="${personaje.id}">
+                <div class="personaje" personaje-id="${personaje.id}">
                     <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
                     <h2 class="personajeTexto">${personaje.name}</h2>
                 </div>
@@ -151,7 +153,7 @@ async function buscarPersonajes() {
 
         for (let i = 0; i < personajesElements.length; i++) {
             personajesElements[i].addEventListener('click', function () {
-                const personajeId = personajesElements[i].getAttribute('data-id');
+                const personajeId = personajesElements[i].getAttribute('personaje-id');
                 obtenerComicsDelPersonaje(personajeId);
             });
         }
@@ -160,4 +162,7 @@ async function buscarPersonajes() {
     }
 }
 
+
+
 obtenerImagenesAleatorias();
+

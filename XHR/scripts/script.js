@@ -21,7 +21,7 @@ function obtenerImagenesAleatorias() {
 
             personajes.forEach(personaje => {
                 personajeInfoContainer.innerHTML += `
-                    <div class="personaje" data-id="${personaje.id}">
+                    <div class="personaje" personaje-id="${personaje.id}">
                         <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
                         <h2 class="personajeTexto">${personaje.name}</h2>
                     </div>
@@ -32,7 +32,7 @@ function obtenerImagenesAleatorias() {
 
             for (let i = 0; i < personajesElements.length; i++) {
                 personajesElements[i].addEventListener('click', function () {
-                    let personajeId = personajesElements[i].getAttribute('data-id');
+                    let personajeId = personajesElements[i].getAttribute('personaje-id');
                     obtenerComicsDelPersonaje(personajeId);
                 });
             }
@@ -154,7 +154,7 @@ function buscarPersonajes() {
 
             personajesBusqueda.forEach(personaje => {
                 personajeInfoContainer.innerHTML += `
-                    <div class="personaje" data-id="${personaje.id}">
+                    <div class="personaje" personaje-id="${personaje.id}">
                         <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
                         <h2 class="personajeTexto">${personaje.name}</h2>
                     </div>
@@ -165,7 +165,7 @@ function buscarPersonajes() {
 
             for (let i = 0; i < personajesElements.length; i++) {
                 personajesElements[i].addEventListener('click', function () {
-                    let personajeId = personajesElements[i].getAttribute('data-id');
+                    let personajeId = personajesElements[i].getAttribute('personaje-id');
                     obtenerComicsDelPersonaje(personajeId);
                 });
             }
