@@ -31,11 +31,11 @@ async function obtenerImagenesAleatorias() {
             `;
         });
 
-        const personajesElements = document.getElementsByClassName('personaje');
+        const personaje_id = document.getElementsByClassName('personaje');
 
-        for (let i = 0; i < personajesElements.length; i++) {
-            personajesElements[i].addEventListener('click', function () {
-                const personajeId = personajesElements[i].getAttribute('personaje-id');
+        for (let i = 0; i < personaje_id.length; i++) {
+            personaje_id[i].addEventListener('click', function () {
+                const personajeId = personaje_id[i].getAttribute('personaje-id');
                 obtenerComicsDelPersonaje(personajeId);
             });
         }
@@ -68,11 +68,11 @@ async function obtenerComicsDelPersonaje(personajeId) {
             `;
         });
 
-        const comicsElements = document.getElementsByClassName('comicsTransiciones');
+        const comics_id = document.getElementsByClassName('comicsTransiciones');
 
-        for (let i = 0; i < comicsElements.length; i++) {
-            comicsElements[i].addEventListener('click', function () {
-                const comicId = comicsElements[i].getAttribute('data-comic-id');
+        for (let i = 0; i < comics_id.length; i++) {
+            comics_id[i].addEventListener('click', function () {
+                const comicId = comics_id[i].getAttribute('data-comic-id');
                 obtenerDetallesDelComic(comicId);
             });
         }
@@ -149,11 +149,11 @@ async function buscarPersonajes() {
             `;
         });
 
-        const personajesElements = document.getElementsByClassName('personaje');
+        const personaje_id = document.getElementsByClassName('personaje');
 
-        for (let i = 0; i < personajesElements.length; i++) {
-            personajesElements[i].addEventListener('click', function () {
-                const personajeId = personajesElements[i].getAttribute('personaje-id');
+        for (let i = 0; i < personaje_id.length; i++) {
+            personaje_id[i].addEventListener('click', function () {
+                const personajeId = personaje_id[i].getAttribute('personaje-id');
                 obtenerComicsDelPersonaje(personajeId);
             });
         }
@@ -161,6 +161,9 @@ async function buscarPersonajes() {
         console.error('Error al intentar realizar la búsqueda:', error.message);
     }
 }
+
+
+
 
 async function obtenerPromesas() {
     const promesa1 = `http://gateway.marvel.com/v1/public/characters/${deadpoolID}?ts=${ts}&apikey=${publickey}&hash=${hash}`;
@@ -170,10 +173,9 @@ async function obtenerPromesas() {
         .then(response => response.json())
         .then(data => data.data.results[0]);
 
-        mostrarPersonaje(personaje);
+        mostrarPersonajeRace(personaje);
 }
-
-async function mostrarPersonaje(personaje) {
+async function mostrarPersonajeRace(personaje) {
     const personajes = document.getElementById('personajeInfo');
     personajes.innerHTML = `
         <div class="personaje" personaje-id="${personaje.id}">
@@ -181,15 +183,51 @@ async function mostrarPersonaje(personaje) {
             <h2 class="personajeTexto">${personaje.name}</h2>
         </div>
     `;
-    const personajesElements = document.getElementsByClassName('personaje');
+    const personaje_id = document.getElementsByClassName('personaje');
 
-    for (let i = 0; i < personajesElements.length; i++) {
-        personajesElements[i].addEventListener('click', function () {
-            const personajeId = personajesElements[i].getAttribute('personaje-id');
+    for (let i = 0; i < personaje_id.length; i++) {
+        personaje_id[i].addEventListener('click', function () {
+            const personajeId = personaje_id[i].getAttribute('personaje-id');
             obtenerComicsDelPersonaje(personajeId);
         });
     }
 }
+
+async function obtenerPromesasParalelas() {
+    const promesa1 = fetch(`http://gateway.marvel.com/v1/public/characters/${deadpoolID}?ts=${ts}&apikey=${publickey}&hash=${hash}`);
+    const promesa2 = fetch(`http://gateway.marvel.com/v1/public/characters/${wolverineID}?ts=${ts}&apikey=${publickey}&hash=${hash}`);
+
+    const [response1, response2] = await Promise.all([promesa1, promesa2]);
+
+    const personaje1 = await response1.json();
+    const personaje2 = await response2.json();
+
+    mostrarPersonajesParalelos([personaje1.data.results[0], personaje2.data.results[0]]); 
+}
+async function mostrarPersonajesParalelos(personajes) {
+    const personajesParalelo = document.getElementById('personajeInfo');
+    personajesParalelo.innerHTML = ''; 
+
+    for (let personaje of personajes) {
+        personajesParalelo.innerHTML += `
+            <div class="personaje" personaje-id="${personaje.id}">
+                <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
+                <h2 class="personajeTexto">${personaje.name}</h2>
+            </div>
+        `;
+
+        const personaje_id = document.getElementsByClassName('personaje');
+
+        for (let i = 0; i < personaje_id.length; i++) {
+            personaje_id[i].addEventListener('click', function () {
+                const personajeId = personaje_id[i].getAttribute('personaje-id');
+                obtenerComicsDelPersonaje(personajeId);
+            });
+        }
+    }
+}
+
+
 
 
 obtenerImagenesAleatorias();
