@@ -114,7 +114,7 @@ function mostrarPopup(comicDetalles) {
             <button class="cerrar-popup" onclick="cerrarPopup()">X</button>
             <h2>${comicDetalles.title}</h2>
             <img class="img3" src="${comicDetalles.thumbnail.path}.${comicDetalles.thumbnail.extension}" alt="${comicDetalles.title}">
-            <p>${comicDetalles.description || 'Sin descripción disponible.'}</p>
+            <p>${comicDetalles.description || 'Sin descripción '}</p>
         </div>
     `;
 

@@ -28,11 +28,11 @@ function obtenerImagenesAleatorias() {
                 `;
             });
 
-            let personajesElements = document.getElementsByClassName('personaje');
+            let personajes_id = document.getElementsByClassName('personaje');
 
-            for (let i = 0; i < personajesElements.length; i++) {
-                personajesElements[i].addEventListener('click', function () {
-                    let personajeId = personajesElements[i].getAttribute('personaje-id');
+            for (let i = 0; i < personajes_id.length; i++) {
+                personajes_id[i].addEventListener('click', function () {
+                    let personajeId = personajes_id[i].getAttribute('personaje-id');
                     obtenerComicsDelPersonaje(personajeId);
                 });
             }
@@ -70,11 +70,11 @@ function obtenerComicsDelPersonaje(personajeId) {
         `;
     });
 
-    let comicsElements = document.getElementsByClassName('comicsTransiciones');
+    let comics_id = document.getElementsByClassName('comicsTransiciones');
 
-    for (let i = 0; i < comicsElements.length; i++) {
-        comicsElements[i].addEventListener('click', function () {
-            let comicId = comicsElements[i].getAttribute('data-comic-id');
+    for (let i = 0; i < comics_id.length; i++) {
+        comics_id[i].addEventListener('click', function () {
+            let comicId = comics_id[i].getAttribute('data-comic-id');
             obtenerDetallesDelComic(comicId);
         });
     }
@@ -127,7 +127,7 @@ function mostrarPopup(comicDetalles) {
         <button class="cerrar-popup" onclick="cerrarPopup()">X</button>
         <h2>${comicDetalles.title}</h2>
         <img class="img3"src="${comicDetalles.thumbnail.path}.${comicDetalles.thumbnail.extension}" alt="${comicDetalles.title}">
-        <p>${comicDetalles.description || 'Sin descripción disponible.'}</p>
+        <p>${comicDetalles.description || 'Sin descripción'}</p>
     </div>
     `;
 
@@ -161,11 +161,11 @@ function buscarPersonajes() {
                 `;
             });
 
-            let personajesElements = document.getElementsByClassName('personaje');
+            let personajes_id = document.getElementsByClassName('personaje');
 
-            for (let i = 0; i < personajesElements.length; i++) {
-                personajesElements[i].addEventListener('click', function () {
-                    let personajeId = personajesElements[i].getAttribute('personaje-id');
+            for (let i = 0; i < personajes_id.length; i++) {
+                personajes_id[i].addEventListener('click', function () {
+                    let personajeId = personajes_id[i].getAttribute('personaje-id');
                     obtenerComicsDelPersonaje(personajeId);
                 });
             }
