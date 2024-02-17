@@ -9,7 +9,7 @@ const socketIo = require("socket.io");
 
 function iniciar() {
     const server = http.createServer(onRequest).listen(8888);
-    console.log("Servidor HTTP iniciado en http://localhost:8888/index.html");
+    console.log("Server iniciado http://localhost:8888/index.html");
 
     const io = socketIo(server);
 

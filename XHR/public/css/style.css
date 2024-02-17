@@ -1,0 +1,206 @@
+@font-face {
+    font-family: 'fuente'; 
+    src: url('../fonts/ThunderboltRegular-8MV8M.ttf') 
+}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Salsa&display=swap');
+
+body {
+    color: white;
+    background-color: rgb(123, 36, 36);
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#logo_container {
+    width: 10%;
+    min-width: 80px;
+}
+
+#logo {
+    width: 100%;
+    object-fit: fill;
+}
+#imagenBlob {
+    width: 100%;
+    object-fit: fill;
+}
+
+.img{
+    width: 140px;
+    height: 190px;
+    border-radius:10% ;
+    margin-top: 100px;
+    
+}
+.img2{
+    width: 170px;
+    height: 170px;
+    border-radius:10% ;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.img3{
+    width: 300px;
+    height: 390px;
+
+    transition: transform 0.3s ease;
+}
+#comicsInfo {
+    display: flex;
+    flex-wrap: nowrap;  
+
+}
+.comic-container{
+    margin-left: 40px;
+}
+
+.imagenes{
+    margin-top: 50px;
+    margin-left: 0px;
+}
+#personajeInfo {
+    display: flex;
+    flex-wrap: nowrap;  
+    margin-left: 25px;
+    margin-top: 50px;
+}
+.personaje:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+.comicsTransiciones{
+    transition: transform 0.3s;
+}
+.comicsTransiciones:hover {
+    transform: scale(1.1);
+}
+.personaje {
+    width: 250px;
+    height: 250px;
+    background-color: #1b1b1b;
+    border-radius: 20px;
+    background-image: linear-gradient(180deg, transparent, #ff0000d1, #e50000, transparent);
+    margin: 10px;
+    padding: 10px;
+    padding-bottom: 30px;
+    border-bottom: 3px solid #f00;
+    font-family: 'fuente'; 
+    color: #fff; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    transition: transform 0.5s;
+}
+
+
+.personajeTexto{
+    font-size: 20px;
+}
+
+.buscar-container {
+    text-align: center; 
+    margin-top: 20px;
+}
+
+.barrabuscar {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: rgb(233, 230, 230);
+    color: rgb(3, 3, 3);
+    margin-right: 10px;
+}
+
+.buscarPersonajes{
+    text-align: center; 
+    margin-top: 20px;
+}
+.boton-buscar{
+    text-align: center; 
+    margin-top: 20px;
+}
+.boton {
+    color: white;
+    background-color: #ff0909; 
+    border: hidden;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border 0.3s; 
+}
+
+.boton:hover {
+    color: #ec1e1ee1; 
+    background-color: rgb(10, 10, 10);
+    border: hidden;
+}
+
+
+#comicsInfo {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20px;
+    margin-right: 10px;
+    margin-top: -50px;
+    max-width: 100%; 
+    width: auto;
+    box-sizing: border-box;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.linea{
+    margin-top: 140px;
+    border: #440202 1px solid ;
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: linear-gradient(180deg, #fc7c7c,#e20404, #960202,#640404);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+}
+.fuente-popup{
+    font-family: 'Salsa', cursive;
+}
+
+.fuente-popup h2{
+    font-family: 'Cinzel', serif;
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.popup-container {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+.cerrar-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background: #640404;
+    color:white;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    text-align: center;
+    border: hidden;
+}
