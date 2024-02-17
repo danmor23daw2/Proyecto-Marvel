@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./img/M-favicon.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./scripts/script.js"></script>
+    <title>MarvelAPI</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="logo_container">
+            <a href="./index.html">
+                <img src="./img/Marvel_Logo.svg.png" alt="" srcset="" id="logo">
+            </a>
+        </div>
+    </div>
+    <div class="buscar-container">
+        <input type="text" id="inputBuscar" class="barrabuscar" placeholder="Buscar por nombre...">
+    </div>
+    <div class="boton-buscar">
+        <button class="boton" id="boton" onclick="buscarPersonajes()">Buscar</button>
+        <button class="boton" id="botonPersonajeAleatorio" onclick="obtenerPromesas()">Deadpool vs Wolverine</button>
+        <button class="boton" onclick="obtenerPromesasParalelas()">Paralelo</button>
+    </div>
+    <div class="imagenes">
+        <div class="img" id="personajeInfo" onload="obtenerImagenAleatoria()">
+        </div>
+    </div>
+    <div class="linea"></div>
+    <div class="comic-container">
+        <div class="img" id="comicsInfo">
+        </div>
+    </div>
+
+    <div id="comicPopup" class="popup">
+        <div class="popup-container" id="contenidoPopup">
+        </div>
+    </div>
+
+</body>
+
+</html>
+
