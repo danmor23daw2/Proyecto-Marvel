@@ -7,105 +7,90 @@ const deadpoolID = 1009268;
 const wolverineID = 1009718;
 
 const socket = io();
-
-async function obtenerImagenesAleatorias() {
-    try {
-        const url = `http://gateway.marvel.com/v1/public/characters?${limit}&${randomOffset}&ts=${ts}&apikey=${publickey}&hash=${hash}`;
-
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            throw new Error(`${response.status}`);
-        }
-
-        const respuestaPersonajes = await response.json();
-        const personajes = respuestaPersonajes.data.results;
-
-        const personajeInfoContainer = document.getElementById('personajeInfo');
-        personajeInfoContainer.innerHTML = "";
-
-        personajes.forEach(personaje => {
-            personajeInfoContainer.innerHTML += `
-                <div class="personaje" personaje-id="${personaje.id}">
-                    <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
-                    <h2 class="personajeTexto">${personaje.name}</h2>
-                </div>
-            `;
+socket.on("RespuestaImagenesAleatorias", (data)=> {
+    let personajes = data.data;
+    let personajeInfoContainer = document.getElementById("personajeInfo");
+    console.log(personajes)
+    personajes.results.forEach(personaje => {
+        personajeInfoContainer.innerHTML += `
+            <div class="personaje" personaje-id="${personaje.id}">
+                <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
+                <h2 class="personajeTexto">${personaje.name}</h2>
+            </div>
+        `;
+    });
+    const personajes_id = document.getElementsByClassName('personaje');
+    
+    for (let i = 0; i < personajes_id.length; i++) {
+        personajes_id[i].addEventListener('click', function () {
+            const personajeId = personajes_id[i].getAttribute('personaje-id');
+            socket.emit("idPersonaje", {personaje1: personajeId});
         });
-
-        const personajes_id = document.getElementsByClassName('personaje');
-
-        for (let i = 0; i < personajes_id.length; i++) {
-            personajes_id[i].addEventListener('click', function () {
-                const personajeId = personajes_id[i].getAttribute('personaje-id');
-                obtenerComicsDelPersonaje(personajeId);
-            });
-        }
-
-        socket.emit("message", "Bien");
-    } catch (error) {
-        console.error('Error Solicitud:', error.message);
     }
-}
+})
 
-async function obtenerComicsDelPersonaje(personajeId) {
-    try {
-        const comicsUrl = `http://gateway.marvel.com/v1/public/characters/${personajeId}/comics?ts=${ts}&apikey=${publickey}&hash=${hash}`;
 
-        const response = await fetch(comicsUrl);
+socket.on("ObtenerComicsPerosnajes", (data) =>{
 
-        if (!response.ok) {
-            throw new Error(`${response.status}`);
-        }
+    const comicsInfoContainer = document.getElementById('comicsInfo');
+    comicsInfoContainer.innerHTML = "";
 
-        const respuestaComics = await response.json();
-        const comics = respuestaComics.data.results;
+    data.data.results.forEach(comic => {
+        comicsInfoContainer.innerHTML += `
+            <div class="comicsTransiciones" data-comic-id="${comic.id}">
+                <img class="img" src="${comic.thumbnail.path}.${comic.thumbnail.extension}">
+            </div>
+        `;
+    });
 
-        const comicsInfoContainer = document.getElementById('comicsInfo');
-        comicsInfoContainer.innerHTML = "";
+    const comics_id = document.getElementsByClassName('comicsTransiciones');
 
-        comics.forEach(comic => {
-            comicsInfoContainer.innerHTML += `
-                <div class="comicsTransiciones" data-comic-id="${comic.id}">
-                    <img class="img" src="${comic.thumbnail.path}.${comic.thumbnail.extension}">
-                </div>
-            `;
+    for (let i = 0; i < comics_id.length; i++) {
+        comics_id[i].addEventListener('click', function () {
+            const comicId = comics_id[i].getAttribute('data-comic-id');
+
+            socket.emit("comicid", {comic1: comicId});
         });
-
-        const comics_id = document.getElementsByClassName('comicsTransiciones');
-
-        for (let i = 0; i < comics_id.length; i++) {
-            comics_id[i].addEventListener('click', function () {
-                const comicId = comics_id[i].getAttribute('data-comic-id');
-                obtenerDetallesDelComic(comicId);
-            });
-        }
-
-        socket.emit("message", "comic Bien");
-    } catch (error) {
-        console.error('Error Comic:', error.message);
     }
-}
+});
 
-async function obtenerDetallesDelComic(comicId) {
-    try {
-        const comicDetallesUrl = `http://gateway.marvel.com/v1/public/comics/${comicId}?ts=${ts}&apikey=${publickey}&hash=${hash}`;
+socket.on("DetallesComic", (data) =>{
+    const comicDetalles = data.data.results[0];
+    mostrarPopup(comicDetalles);
+});
 
-        const response = await fetch(comicDetallesUrl);
+socket.on("BuscarPersonaje", (data) => {
+    const personajesBusqueda = data.data.results;
+    const personajeInfoContainer = document.getElementById('personajeInfo');
+    personajeInfoContainer.innerHTML = "";
 
-        if (!response.ok) {
-            throw new Error(`${response.status}`);
-        }
+    personajesBusqueda.forEach((personaje) => {
+        personajeInfoContainer.innerHTML += `
+            <div class="personaje" personaje-id="${personaje.id}">
+                <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
+                <h2 class="personajeTexto">${personaje.name}</h2>
+            </div>
+        `;
+    });
 
-        const respuestaComicDetalles = await response.json();
-        const comicDetalles = respuestaComicDetalles.data.results[0];
-        mostrarPopup(comicDetalles);
+    const personajes_id = document.getElementsByClassName('personaje');
 
-        socket.emit("message", "Bien Detalles");
-    } catch (error) {
-        console.error('Error Detalles:', error.message);
+    for (let i = 0; i < personajes_id.length; i++) {
+        personajes_id[i].addEventListener('click', function () {
+            const personajeId = personajes_id[i].getAttribute('personaje-id');
+            socket.emit("buscar", {buscar1: personajeId});
+        });
     }
-}
+    
+});
+
+let botonBuscar = document.getElementsByClassName("boton");
+botonBuscar.addEventListener('click',()=> {
+    let inputBuscar = document.getElementById('inputBuscar');
+    let buscar = inputBuscar.value;
+    socket.emit("PersonajeBusqueda", {nombre2: buscar});
+});
+
 
 function cerrarPopup() {
     const popup = document.getElementById('comicPopup');
@@ -128,45 +113,5 @@ function mostrarPopup(comicDetalles) {
     popup.style.display = 'block';
 }
 
-async function buscarPersonajes() {
-    try {
-        const inputBuscar = document.getElementById('inputBuscar');
-        const buscar = inputBuscar.value;
 
-        const url = `http://gateway.marvel.com/v1/public/characters?${limit}&ts=${ts}&apikey=${publickey}&hash=${hash}&nameStartsWith=${buscar}`;
-
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            throw new Error(`${response.status}`);
-        }
-
-        const respuestaBusqueda = await response.json();
-        const personajesBusqueda = respuestaBusqueda.data.results;
-
-        const personajeInfoContainer = document.getElementById('personajeInfo');
-        personajeInfoContainer.innerHTML = "";
-
-        personajesBusqueda.forEach(personaje => {
-            personajeInfoContainer.innerHTML += `
-                <div class="personaje" personaje-id="${personaje.id}">
-                    <img class="img2" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}">
-                    <h2 class="personajeTexto">${personaje.name}</h2>
-                </div>
-            `;
-        });
-
-        const personajes_id = document.getElementsByClassName('personaje');
-
-        for (let i = 0; i < personajes_id.length; i++) {
-            personajes_id[i].addEventListener('click', function () {
-                const personajeId = personajes_id[i].getAttribute('personaje-id');
-                obtenerComicsDelPersonaje(personajeId);
-            });
-        }
-    } catch (error) {
-        console.error('Error Busqueda:', error.message);
-    }
-}
-obtenerImagenesAleatorias();
 
