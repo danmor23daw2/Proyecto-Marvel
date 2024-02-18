@@ -78,18 +78,21 @@ socket.on("BuscarPersonaje", (data) => {
     for (let i = 0; i < personajes_id.length; i++) {
         personajes_id[i].addEventListener('click', function () {
             const personajeId = personajes_id[i].getAttribute('personaje-id');
-            socket.emit("buscar", {buscar1: personajeId});
+            socket.emit("idPersonaje", {personaje1: personajeId});
         });
     }
-    
 });
 
-let botonBuscar = document.getElementsByClassName("boton");
-botonBuscar.addEventListener('click',()=> {
-    let inputBuscar = document.getElementById('inputBuscar');
-    let buscar = inputBuscar.value;
-    socket.emit("PersonajeBusqueda", {nombre2: buscar});
-});
+window.onload = () => {
+    let botonBuscar = document.getElementById("boton");
+
+    botonBuscar.addEventListener('click', () => {
+        let inputBuscar = document.getElementById('inputBuscar');
+        let buscar = inputBuscar.value;
+        socket.emit("buscar", { buscar1: buscar });
+    });
+};
+
 
 
 function cerrarPopup() {
